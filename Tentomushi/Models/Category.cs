@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace Tentomushi.Models
 {
     public class Category
@@ -18,3 +19,4 @@ namespace Tentomushi.Models
 
     }
 }
+

@@ -3,7 +3,9 @@ using Tentomushi.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Sql")));
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Sql")));
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

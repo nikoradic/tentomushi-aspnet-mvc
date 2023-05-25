@@ -11,7 +11,7 @@
         <input asp-for="Product.Id" hidden />
         
     }
-    <div class="border p-3 bg-white">
+    <div class="border p-3">
 
         <div class="form-group row">
             <h2 class="text-info pl-3">@title</h2>
@@ -53,7 +53,7 @@
                        Image
                     </div>
                     <div class="col-8">
-                        <input type="file" name="file" id="uploadBox" class="form-control" />
+                        <input type="file" name="files" id="uploadBox" multiple class="form-control" />
                       
                     </div>
 
@@ -64,9 +64,9 @@
                     </div>
                     <div class="col-8">
                         <select asp-for="Product.CategoryId" asp-items="@Model.CategorySelectList" class="form-control">
-                           <option disabled selected>--Select Category--</option>
+                            <option disabled selected>--Select Category--</option>
 
-                       </select>
+                        </select>
                         <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
                     </div>
 
@@ -93,7 +93,11 @@
                 </div>
             </div>
             <div class="col-4">
-               
+                @if(Model.Product.Id != 0)
+                {
+                <img src="@WC.ImagePath@Model.Product.Image" width="100%" style="border-radius:5px; border:1px solid #bbb" />
+                    
+                }
             </div>
         </div>
     </div>
@@ -103,5 +107,17 @@
     @{
         <partial name="_ValidationScriptsPartial" />
     }
-
+    <script>
+        function validateInput(){
+            if (document.getElementById("uploadBox").value == ""){
+                Swal.fire(
+                    'Error!',
+                    'Please upload an Image!',
+                    'error'
+                )
+                return false;
+            }
+            return true;
+        }
+    </script>
 }

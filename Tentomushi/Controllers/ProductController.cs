@@ -30,19 +30,12 @@ namespace Tentomushi.Controllers
             return View(objList);
         }
 
+        //GET - UPSERT
         public IActionResult Upsert(int? id)
         {
-            //IEnumerable<SelectListItem> CategoryDropDown = _context.Category.Select(i => new SelectListItem
-            //{
-            //    Text = i.Name,
-            //    Value = i.Id.ToString()
-            //});
-            //ViewBag.CategoryDropDown = CategoryDropDown;
-
-
-            //Product product = new Product();
 
             ProductViewModel productViewModel = new ProductViewModel()
+
             {
                 Product = new Product(),
                 CategorySelectList = _context.Category.Select(i => new SelectListItem
@@ -51,6 +44,7 @@ namespace Tentomushi.Controllers
                     Value = i.Id.ToString()
                 })
             };
+
             if (id == null)
             {
                 return View(productViewModel);
@@ -64,14 +58,16 @@ namespace Tentomushi.Controllers
                 }
                 return View(productViewModel);
             }
-            return View(productViewModel);
 
         }
+
+
+        //POST - UPSERT
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Upsert(ProductViewModel productViewModel)
         {
-
             if (ModelState.IsValid)
             {
                 var files = HttpContext.Request.Form.Files;
@@ -94,13 +90,16 @@ namespace Tentomushi.Controllers
                 }
                 else
                 {
+                    //uppdating
 
                 }
+
+
                 _context.SaveChanges();
                 return RedirectToAction("Index");
 
             }
-            return View();
+            return View(productViewModel);
         }
 
 
